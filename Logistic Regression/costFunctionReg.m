@@ -17,6 +17,14 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+h_theta = sigmoid(X * theta);
+J = 1/m * sum(-y.*log(h_theta) - (1-y).*log(1-h_theta) ) + lambda/(2*m) *sum(theta(2:end).^2);
+  
+grad(1) = 1 / m * sum((h_theta - y) .* X(:, 1));
+
+for i = 2:size(theta, 1)
+    grad(i) = 1 / m * sum((h_theta - y) .* X(:, i)) + lambda / m * theta(i);
+end
 
 
 
